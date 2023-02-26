@@ -1,0 +1,8 @@
+[DEFAULT]
+token = 
+id = 
+
+mail_pass = 
+username = 
+imap_server = 
+mail_folder = 

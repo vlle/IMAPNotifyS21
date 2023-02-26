@@ -1,0 +1,4 @@
+version: "3.10"
+services:
+  mail_bot:
+    build: .
