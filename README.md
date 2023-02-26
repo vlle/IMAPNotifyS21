@@ -1,7 +1,8 @@
 ## Notify S21 bot 
 
 ### About
-This bot scans every 5 seconds your email folder for unseen messages and if it sees any -- it sends you a msg in Telegram
+- This bot scans every 5 seconds your email folder for unseen messages and if it sees any - it sends you a msg in Telegram
+- It is tested only on Yandex though.
 
 ### Prerequisites
 - Docker
@@ -14,7 +15,7 @@ This bot scans every 5 seconds your email folder for unseen messages and if it s
 5. Insert your IMAP server (same)
 6. Insert your folder to scan 
 
-Don't use quotation mark. Just paste your data. Don't share with anyone your token or mail_pass.
+Don't use quotation marks. Just paste your data. Don't share with anyone your token or mail_pass.
 
 ### How to build
 ``docker compose up --build -d ``
@@ -24,3 +25,6 @@ Don't use quotation mark. Just paste your data. Don't share with anyone your tok
 
 ### How it looks? 
 ![example](img/example_message.jpg) 
+
+### Bot is broken?
+- Make an issue. Or pull request. I am a bit lazy about this project though, since that simple bot was initially made just for myself. But who knows!
