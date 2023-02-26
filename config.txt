@@ -1,8 +1,8 @@
 [DEFAULT]
-token = 
-id = 
+token = bot_token
+id = tg_id
 
-mail_pass = 
-username = 
-imap_server = 
-mail_folder = 
+mail_pass = letters
+username = nick
+imap_server = site_url
+mail_folder = folder_name
