@@ -16,6 +16,8 @@ from aiogram.filters import Command
 from utils.settings import Config 
 from aiogram.types import CallbackQuery, Message
 
+async def start(message: types.Message):
+    await message.answer(message.text)
 
 async def login():
     config_data = Config("config.txt")
@@ -71,10 +73,11 @@ async def check_school_mail(bot: Bot):
 
 async def main():
     dp = Dispatcher()
+    dp.message.register(start, (Command(commands=["start"])))
     logging.basicConfig(level=logging.INFO)
     config_data = Config("config.txt")
     bot = Bot(token=config_data.token, parse_mode="html")
-    await asyncio.gather(check_school_mail(bot))
+    await asyncio.gather(dp.start_polling(bot), check_school_mail(bot))
 
 if __name__ == "__main__":
     asyncio.run(main())
