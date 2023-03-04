@@ -66,7 +66,7 @@ async def check_school_mail(bot: Bot):
             message = await select_new_last_message()
             if (message != "None"):
                 await bot.send_message(config_data.id, message)
-            await asyncio.sleep(3)
+            await asyncio.sleep(35)
         except TimeoutError:
             await asyncio.sleep(5)
 
