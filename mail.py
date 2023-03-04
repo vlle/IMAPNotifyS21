@@ -34,7 +34,8 @@ def decoder(subject: str) -> str:
         return h
     return subject
 
-async def select_new_last_message(imap) -> str:
+async def select_new_last_message() -> str:
+    imap = await login()
     imap.select(config_data.mail_folder)
     retcode, messages = (imap.uid('search', "UNSEEN", "ALL"))
     if retcode != "OK" or not messages[0].split():
@@ -49,17 +50,19 @@ async def select_new_last_message(imap) -> str:
     date_msg = f"{letter_date[0]}-{letter_date[1]}-{letter_date[2]} {letter_date[3]}:{letter_date[4]}:{letter_date[5]}"
     letter_theme = decoder(letter_theme)
     info_msg = f"<b>Date:</b> {date_msg}\n<b>Theme:</b> {letter_theme}"
+    imap.close()
+    imap.logout()
     return (info_msg)
 # 
 
 async def echo(message: Message):
     await message.answer(message.text)
 
-async def check_school_mail(bot: Bot, imap):
+async def check_school_mail(bot: Bot):
     while True:
         try:
             message = "No messages yet"
-            message = await select_new_last_message(imap)
+            message = await select_new_last_message()
             if (message != "None"):
                 await bot.send_message(config_data.id, message)
             await asyncio.sleep(3)
@@ -70,7 +73,6 @@ async def check_school_mail(bot: Bot, imap):
 async def main():
     dp = Dispatcher()
     logging.basicConfig(level=logging.INFO)
-    imap = await login()
     bot = Bot(token=config_data.token, parse_mode="html")
     await asyncio.gather(check_school_mail(bot, imap))
 
