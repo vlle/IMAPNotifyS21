@@ -16,9 +16,9 @@ from aiogram.filters import Command
 from utils.settings import Config 
 from aiogram.types import CallbackQuery, Message
 
-config_data = Config("config.txt")
 
 async def login():
+    config_data = Config("config.txt")
     mail_pass = config_data.mail_pass
     username = config_data.username
     imap_server = config_data.imap_server
@@ -35,6 +35,7 @@ def decoder(subject: str) -> str:
     return subject
 
 async def select_new_last_message() -> str:
+    config_data = Config("config.txt")
     imap = await login()
     imap.select(config_data.mail_folder)
     retcode, messages = (imap.uid('search', "UNSEEN", "ALL"))
@@ -55,10 +56,8 @@ async def select_new_last_message() -> str:
     return (info_msg)
 # 
 
-async def echo(message: Message):
-    await message.answer(message.text)
-
 async def check_school_mail(bot: Bot):
+    config_data = Config("config.txt")
     while True:
         try:
             message = "No messages yet"
@@ -73,8 +72,9 @@ async def check_school_mail(bot: Bot):
 async def main():
     dp = Dispatcher()
     logging.basicConfig(level=logging.INFO)
+    config_data = Config("config.txt")
     bot = Bot(token=config_data.token, parse_mode="html")
-    await asyncio.gather(check_school_mail(bot, imap))
+    await asyncio.gather(check_school_mail(bot))
 
 if __name__ == "__main__":
     asyncio.run(main())
